@@ -53,19 +53,9 @@ In this guide, the following key:values will be used for lava-master, you will n
      * Create an a record that points your domain to the public IP address of your server.
 
      Steps:
-     * Set up lava-server site as default site
-       ```
-       a2dissite lava-server.conf
-       cd /etc/apache2/sites-available
-       mv 000-default.conf 000-default.conf.bak
-       mv default-ssl.conf default-ssl.conf.bak
-       cp lava-server.conf 000-default.conf
-       a2ensite 000-default.conf
-       systemctl reload apache2
-       ```
      * Set up the Apache ServerName and ServerAlias
        ```
-       vim /etc/apache2/sites-available/000-default.conf
+       vim /etc/apache2/sites-available/lava-server.conf
        ```
        Add the following two lines:
        ```   
@@ -82,6 +72,7 @@ In this guide, the following key:values will be used for lava-master, you will n
        ```
      * Set up the SSL Certificate
        ```
+       apt-get install certbot python-certbot-apache -t stretch-backports
        certbot --apache
        ```
        Follow the instructions to active https for `chase.lkft.org` and redirect all requests to secure HTTPS access.
